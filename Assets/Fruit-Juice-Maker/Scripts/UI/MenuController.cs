@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour {
-	
+	public GameObject _subPanel;
 	///*************************************************************************///
 	/// Main Menu Controller.
 	/// This class handles all touch events on buttons, and also updates the 
@@ -76,7 +76,14 @@ public class MenuController : MonoBehaviour {
 			
 				//Game Modes
 				case "Button-01":
-					playSfx(tapSfx);								//play touch sound
+					playSfx(tapSfx);	
+					
+					if (!GameDataManager.Instance.playerData.IsRegister)
+					{
+						_subPanel.SetActive(true);
+					}
+					
+					//play touch sound
 					PlayerPrefs.SetString("gameMode", "FREEPLAY");	//set game mode to fetch later in "Game" scene
 					StartCoroutine(animateButton(objectHit));		//touch animation effect
 					yield return new WaitForSeconds(1.0f);			//Wait for the animation to end
